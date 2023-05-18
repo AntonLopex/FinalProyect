@@ -1,5 +1,7 @@
 package proyectoliga;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author a22antonll
@@ -27,28 +29,26 @@ public class paginaPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         usernameField = new javax.swing.JTextField();
-        paswdField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         newUserSubmit = new javax.swing.JButton();
+        passwdField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 0, 0));
 
         title.setText("LIGA DE FUTBOL");
 
         jLabel2.setText("LOGIN");
 
         submit.setText("CONTINUAR");
+        submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("USUARIO:");
 
         jLabel4.setText("CONTRASEÑA");
-
-        paswdField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paswdFieldActionPerformed(evt);
-            }
-        });
 
         jLabel5.setText("Ya tienes cuenta?");
 
@@ -56,6 +56,12 @@ public class paginaPrincipal extends javax.swing.JFrame {
         newUserSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newUserSubmitActionPerformed(evt);
+            }
+        });
+
+        passwdField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwdFieldActionPerformed(evt);
             }
         });
 
@@ -88,8 +94,8 @@ public class paginaPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel3))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(usernameField)
-                    .addComponent(paswdField, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+                    .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                    .addComponent(passwdField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(newUserSubmit, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -109,29 +115,45 @@ public class paginaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addComponent(jLabel1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel5)))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(paswdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(newUserSubmit))
+                    .addComponent(newUserSubmit)
+                    .addComponent(passwdField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(submit)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void paswdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paswdFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_paswdFieldActionPerformed
-
     private void newUserSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newUserSubmitActionPerformed
         login oforma = new login();
         oforma.setVisible(true);
     }//GEN-LAST:event_newUserSubmitActionPerformed
+
+    private void passwdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwdFieldActionPerformed
+        
+    }//GEN-LAST:event_passwdFieldActionPerformed
+
+    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+
+        DAO d = new DAO();
+        
+        if (d.comprobarUser(usernameField.getText(), passwdHash.calcularHash(passwdField.getText()))) {
+            System.out.println("Funciona");   
+        }else{
+            
+            JOptionPane.showMessageDialog(this,"Crea primero una cuenta." ,
+                    "", JOptionPane.WARNING_MESSAGE);
+            
+        }
+            
+        
+    }//GEN-LAST:event_submitActionPerformed
 
     public static void main(String args[]) {
 
@@ -175,7 +197,7 @@ public class paginaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton newUserSubmit;
-    private javax.swing.JTextField paswdField;
+    private javax.swing.JPasswordField passwdField;
     private javax.swing.JButton submit;
     private javax.swing.JLabel title;
     private javax.swing.JTextField usernameField;

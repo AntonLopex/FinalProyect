@@ -31,8 +31,8 @@ public class login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         newUsername = new javax.swing.JTextField();
-        newPasswd = new javax.swing.JTextField();
         newSubmit = new javax.swing.JButton();
+        newPasswd = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,16 +40,16 @@ public class login extends javax.swing.JFrame {
 
         jLabel2.setText("Contraseña");
 
-        newPasswd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newPasswdActionPerformed(evt);
-            }
-        });
-
         newSubmit.setText("Confirmar");
         newSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newSubmitActionPerformed(evt);
+            }
+        });
+
+        newPasswd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newPasswdActionPerformed(evt);
             }
         });
 
@@ -60,11 +60,6 @@ public class login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(189, 189, 189)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(newPasswd, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(220, 220, 220)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
@@ -72,7 +67,12 @@ public class login extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(212, 212, 212)
-                        .addComponent(newSubmit)))
+                        .addComponent(newSubmit))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(189, 189, 189)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(newUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                            .addComponent(newPasswd))))
                 .addContainerGap(192, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,19 +94,23 @@ public class login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void newPasswdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPasswdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newPasswdActionPerformed
-
    
     
     private void newSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSubmitActionPerformed
         DAO d = new DAO();
         
-        d.insertUser(newUsername.getText(), newPasswd.getText());
+        d.insertUser(newUsername.getText(), passwdHash.calcularHash(newPasswd.getText()));
         JOptionPane.showMessageDialog(this,"Logueado correctamente." ,
                     "", JOptionPane.INFORMATION_MESSAGE);
+        
+        dispose();
     }//GEN-LAST:event_newSubmitActionPerformed
+
+    private void newPasswdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPasswdActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_newPasswdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,7 +150,7 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField newPasswd;
+    private javax.swing.JPasswordField newPasswd;
     private javax.swing.JButton newSubmit;
     private javax.swing.JTextField newUsername;
     // End of variables declaration//GEN-END:variables
